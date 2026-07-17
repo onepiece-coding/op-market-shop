@@ -13,7 +13,7 @@ function App() {
     // BrowserRouter must wrap EVERYTHING that uses router hooks —
     // that includes AuthProvider's children (ProtectedRoute/AdminRoute
     // both call useLocation), and every page itself.
-    <BrowserRouter>
+    <BrowserRouter basename="/op-market-shop/">
       <CacheProvider>
         <AuthProvider>
           <ToastProvider>

@@ -27,6 +27,7 @@ export default defineConfig({
     // this file runs ONCE before all our tests, to set up jest-dom's extra checks
     setupFiles: "./src/test/setup.ts",
   },
+  base: "/op-market-shop/",
   server: {
     port: 3000,
   },
