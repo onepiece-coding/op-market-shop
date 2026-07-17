@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-domain.example.com/</loc>
+    <loc>https://onepiece-coding.github.io/op-market-shop/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://your-domain.example.com/login</loc>
+    <loc>https://onepiece-coding.github.io/op-market-shop/login</loc>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://your-domain.example.com/signup</loc>
+    <loc>https://onepiece-coding.github.io/op-market-shop/signup</loc>
     <priority>0.3</priority>
   </url>
   <!--
