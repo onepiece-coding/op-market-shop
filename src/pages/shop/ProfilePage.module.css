@@ -1,0 +1,154 @@
+/**
+ * @file frontend/src/pages/shop/ProfilePage.module.css
+ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+}
+
+.readonlyLabel {
+  color: var(--color-text-muted);
+}
+
+.readonlyValue {
+  font-weight: var(--font-weight-medium);
+}
+
+.nameForm {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.nameForm > :first-child {
+  flex: 1;
+}
+
+.addressTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.addressTableHeader,
+.addressRow {
+  display: grid;
+  grid-template-columns: 1fr 130px 120px 80px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+}
+
+.addressTableHeader {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.addressRow {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.addressText {
+  font-size: var(--font-size-sm);
+}
+
+.radioCell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Hidden by default — this label duplicates what the desktop column
+   header already says, so it stays invisible until the header itself
+   disappears below the breakpoint. */
+.radioInlineLabel {
+  display: none;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-6) 0;
+}
+
+.errorBanner {
+  background-color: var(--color-danger-muted);
+  color: var(--color-danger);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.emptyState {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* 🚩 THE FIX: below 640px, abandon the 4-column grid entirely and
+   restructure each row into a stacked card — same pattern already used
+   for CartItemRow (Part 8-D) at this exact breakpoint. */
+@media (max-width: 640px) {
+  .addressTableHeader {
+    display: none; /* no more "columns" to label — inline labels take over below */
+  }
+
+  .addressRow {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "address address"
+      "shipping billing"
+      "delete delete";
+    row-gap: var(--space-2);
+  }
+
+  .addressText {
+    grid-area: address;
+  }
+
+  .radioCell:nth-of-type(1) {
+    grid-area: shipping;
+    justify-content: flex-start;
+  }
+
+  .radioCell:nth-of-type(2) {
+    grid-area: billing;
+    justify-content: flex-start;
+  }
+
+  .addressRow > button {
+    grid-area: delete;
+    justify-self: start;
+  }
+
+  .radioInlineLabel {
+    display: inline;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+}

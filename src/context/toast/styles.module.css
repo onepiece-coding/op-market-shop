@@ -1,0 +1,64 @@
+/**
+ * @file frontend/src/context/toast/styles.module.css
+ */
+
+.container {
+  position: fixed;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  z-index: var(--z-toast);
+  max-width: 360px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-on-primary);
+  animation: slideIn var(--transition-base);
+}
+
+.success {
+  background-color: var(--color-success);
+}
+
+.error {
+  background-color: var(--color-danger);
+}
+
+.info {
+  background-color: var(--color-primary);
+}
+
+/* warning uses dark text instead of white — the amber background is too
+   pale for white text to stay readable/accessible against it */
+.warning {
+  background-color: var(--color-warning);
+  color: var(--color-text);
+}
+
+.dismissButton {
+  color: inherit; /* matches whichever variant's text color it's sitting on */
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  flex-shrink: 0; /* never lets the × button get squished by a long message */
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,74 @@
+/**
+ * @file frontend/src/pages/admin/AdminOrdersPage.module.css
+ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.filter {
+  width: 220px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.table {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.paymentCell,
+.dateCell {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8) 0;
+}
+
+.errorBanner {
+  background-color: var(--color-danger-muted);
+  color: var(--color-danger);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.emptyState {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-8) 0;
+}

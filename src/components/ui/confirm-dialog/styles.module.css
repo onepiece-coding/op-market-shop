@@ -1,0 +1,8 @@
+/**
+ * @file frontend/src/components/ui/confirm-dialog/styles.module.css
+ */
+
+.message {
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+}

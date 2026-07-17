@@ -1,0 +1,12 @@
+/**
+ * @file frontend/src/components/icons/Icon.module.css
+ */
+
+.icon {
+  /* Icons must NEVER shrink inside a tight flex container — this is
+     exactly what caused the edit/trash icons to collapse to a tiny
+     point when the table's Actions column got squeezed. Setting this
+     unconditionally on every Icon, everywhere, means this class of bug
+     can never happen again anywhere else in the app either. */
+  flex-shrink: 0;
+}

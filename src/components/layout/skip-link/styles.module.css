@@ -1,0 +1,23 @@
+/**
+ * @file frontend/src/components/layout/skip-link/styles.module.css
+ */
+
+.link {
+  position: absolute;
+  top: -100px; /* off-screen by default */
+  left: var(--space-4);
+  z-index: var(--z-toast); /* above literally everything, including toasts */
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  transition: top var(--transition-fast);
+}
+
+/* the ONLY way this becomes visible: real keyboard focus lands on it.
+   A mouse click can't trigger :focus-visible here at all — this link is
+   invisible and off-screen, so a mouse simply can't reach it to click. */
+.link:focus-visible {
+  top: var(--space-4);
+}

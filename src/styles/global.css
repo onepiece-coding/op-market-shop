@@ -1,0 +1,58 @@
+/**
+ * @file frontend/src/styles/global.css
+ */
+
+body {
+  background-color: var(
+    --color-bg
+  ); /* uses our semantic token, not a raw hex code */
+  color: var(--color-text); /* main text color everywhere, unless overridden */
+  font-family: var(--font-family-base); /* our chosen font stack */
+  font-size: var(--font-size-base); /* default text size, 16px */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-bold); /* headings are always bold */
+  line-height: var(
+    --line-height-tight
+  ); /* headings sit closer together than paragraphs */
+  color: var(--color-text); /* headings use our main text color */
+}
+
+/* This is the MOST IMPORTANT accessibility rule in this whole file. */
+/* :focus-visible only shows an outline when someone is navigating with a KEYBOARD */
+/* (pressing Tab), not when clicking with a mouse. This keeps the UI clean for mouse */
+/* users while still being fully usable for keyboard-only and screen-reader users. */
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring); /* a clear, visible ring */
+  outline-offset: 2px; /* small gap between the element and its outline, so it doesn't look cramped */
+}
+
+/* This styles the little highlight color when a user selects (drags across) text. */
+::selection {
+  background-color: var(--color-primary-muted); /* soft navy background */
+  color: var(--color-primary-hover); /* dark navy text */
+}
+
+/* A simple utility class we will reuse everywhere for screen-reader-only text. */
+/* Example: a search input's icon-only button needs a hidden text label for blind users. */
+.sr-only {
+  position: absolute; /* takes it out of the normal page flow */
+  width: 1px; /* shrinks it to be practically invisible... */
+  height: 1px; /* ...in both directions */
+  padding: 0; /* no padding to expand it */
+  margin: -1px; /* pulls it fully off-screen */
+  overflow: hidden; /* hides anything that pokes out */
+  clip: rect(0, 0, 0, 0); /* old-browser way of clipping it to nothing */
+  white-space: nowrap; /* stops it from wrapping and taking up space */
+  border: 0; /* no border */
+}
+
+main:focus {
+  outline: none;
+}

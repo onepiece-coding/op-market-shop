@@ -1,0 +1,15 @@
+/**
+ * @file frontend/tsconfig.json
+ */
+
+{
+  // "files": [] means "this file itself checks nothing directly"
+  "files": [],
+  // "references" is a list of the real rulebooks TypeScript should use
+  "references": [
+    // rulebook for our React app code (inside src/)
+    { "path": "./tsconfig.app.json" },
+    // rulebook for vite.config.ts (our build tool's own config file)
+    { "path": "./tsconfig.node.json" }
+  ]
+}

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- These are the ONLY values a non-JS-executing crawler (many
+         social link-preview bots) will ever actually see — everything
+         usePageMeta does happens too late for them. Keep these as a
+         solid, generic fallback that's still accurate and useful. -->
+    <title>op-market — Shop everything, in one place</title>
+    <meta
+      name="description"
+      content="Browse and buy a wide range of products on op-market, with fast checkout and secure payments."
+    />
+    <meta name="robots" content="index, follow" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

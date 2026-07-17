@@ -1,0 +1,82 @@
+/**
+ * @file frontend/src/pages/auth/LoginPage.module.css
+ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.banner {
+  background-color: var(--color-danger-muted);
+  color: var(--color-danger);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.input {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-fast);
+}
+
+.input:focus-visible {
+  outline: none;
+  border-color: var(--color-focus-ring);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
+}
+
+/* when aria-invalid="true" is present, show a red border automatically —
+   this ties our VISUAL styling directly to the SAME attribute screen
+   readers use, so sighted and non-sighted users get a consistent signal */
+.input[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.fieldError {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+}
+
+.forgotLink {
+  text-align: right;
+  font-size: var(--font-size-sm);
+}
+
+.forgotLink a {
+  color: var(--color-primary);
+}
+
+.submitButton {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  transition: background-color var(--transition-fast);
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

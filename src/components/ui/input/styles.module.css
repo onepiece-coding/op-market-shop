@@ -1,0 +1,47 @@
+/**
+ * @file frontend/src/components/ui/input/styles.module.css
+ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-fast);
+}
+
+.input:focus-visible {
+  outline: none;
+  border-color: var(--color-focus-ring);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
+}
+
+/* same idea as LoginPage.module.css (Part 6-C-1): the VISUAL red border
+   is tied directly to the SAME aria-invalid attribute screen readers use,
+   so sighted and non-sighted users get a matching signal */
+.input[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.helperText {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.fieldError {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+}

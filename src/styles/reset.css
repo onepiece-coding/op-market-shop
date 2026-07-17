@@ -1,0 +1,68 @@
+/**
+ * @file frontend/src/styles/reset.css
+ */
+
+/* * { } selects EVERY element on the page. */
+/* ::before and ::after are auto-generated "invisible" elements some CSS effects create. */
+* {
+  box-sizing: border-box; /* makes width/height include padding+border (much more predictable) */
+  margin: 0; /* removes every browser's default outer spacing */
+  padding: 0; /* removes every browser's default inner spacing */
+}
+
+html {
+  color-scheme: light; /* tells the browser our app is a light-themed app (affects scrollbars etc.) */
+  -webkit-text-size-adjust: 100%; /* stops iOS Safari from auto-resizing text weirdly */
+}
+
+body {
+  min-height: 100vh; /* body is always at least the full height of the screen */
+  line-height: var(
+    --line-height-normal
+  ); /* comfortable spacing between lines of text */
+  -webkit-font-smoothing: antialiased; /* makes text render smoother on Mac/iOS */
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block; /* images default to inline, which adds a weird invisible gap below them — this fixes that */
+  max-width: 100%; /* images never overflow their container */
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit; /* form elements don't inherit fonts by default in some browsers — this fixes that */
+  color: inherit; /* same for text color */
+}
+
+button {
+  cursor: pointer; /* shows a "clickable hand" cursor on all buttons */
+  background: none; /* removes default gray button background */
+  border: none; /* removes default button border — we'll add our own per-component */
+}
+
+a {
+  color: inherit; /* links don't automatically turn our navy/gold — we'll color them on purpose */
+  text-decoration: none; /* removes the default underline — we'll add it back only where needed */
+}
+
+ul,
+ol {
+  list-style: none; /* removes default bullet points/numbers — we'll add them back only where needed */
+}
+
+/* This part respects people who get dizzy or uncomfortable from animations. */
+/* It's an accessibility feature built right into the operating system's settings. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important; /* makes any animation basically instant */
+    animation-iteration-count: 1 !important; /* stops any looping animation after one run */
+    transition-duration: 0.01ms !important; /* makes any transition basically instant */
+    scroll-behavior: auto !important; /* stops smooth-scrolling effects */
+  }
+}

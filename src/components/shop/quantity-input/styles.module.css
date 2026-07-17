@@ -1,0 +1,29 @@
+/**
+ * @file frontend/src/components/shop/quantity-input/styles.module.css
+ */
+
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.input {
+  width: 48px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-1);
+  font-size: var(--font-size-base);
+  /* hides the browser's default up/down number-spinner arrows — our own
+     +/- buttons on either side already do that job, more consistently
+     across every browser */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

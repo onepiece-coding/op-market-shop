@@ -1,0 +1,30 @@
+/**
+ * @file frontend/tsconfig.node.json
+ */
+
+{
+  "compilerOptions": {
+    // its own separate "memory file" for faster re-checks
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+
+    // vite.config.ts runs on your computer (via Node.js), not the browser,
+    // so it's allowed to target a newer JS version
+    "target": "ES2023",
+    "lib": ["ES2023"],
+
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+
+    // this file also just gets checked, not "compiled to JS" by tsc directly
+    "noEmit": true,
+
+    // still strict, even for our config file
+    "strict": true
+  },
+  // this rulebook ONLY applies to this one file
+  "include": ["vite.config.ts"]
+}

@@ -1,0 +1,50 @@
+/**
+ * @file frontend/src/components/ui/select/styles.module.css
+ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.select {
+  /* removes the browser's own default dropdown arrow, so every browser
+     looks consistent — we draw our OWN arrow below instead */
+  appearance: none;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  /* extra padding on the RIGHT leaves room for our custom arrow image,
+     so the arrow never overlaps the selected option's text */
+  padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+  font-size: var(--font-size-base);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  /* a small arrow drawn directly as an inline SVG "data URI" — this
+     means we need ZERO extra image files or icon libraries for it */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+}
+
+.select:focus-visible {
+  outline: none;
+  border-color: var(--color-focus-ring);
+  box-shadow: 0 0 0 3px var(--color-primary-muted);
+}
+
+.select[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.fieldError {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+}

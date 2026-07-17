@@ -1,0 +1,23 @@
+/**
+ * @file frontend/src/pages/HomePage.module.css
+ */
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  margin-top: var(--space-6);
+  align-items: center;
+}
+
+.page a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}

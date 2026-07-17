@@ -1,0 +1,57 @@
+/**
+ * @file frontend/src/pages/auth/AuthLayout.module.css
+ */
+
+.page {
+  min-height: 100vh; /* the card is always vertically centered in the FULL screen height */
+  display: flex;
+  align-items: center; /* centers vertically */
+  justify-content: center; /* centers horizontally */
+  padding: var(--space-5);
+  background-color: var(
+    --color-surface-muted
+  ); /* soft gray, so the white card stands out */
+}
+
+.card {
+  width: 100%;
+  max-width: 400px; /* keeps the form from stretching too wide on big screens */
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+}
+
+.brand {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-1);
+  text-align: center;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.footer {
+  margin-top: var(--space-5);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.footer a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+}

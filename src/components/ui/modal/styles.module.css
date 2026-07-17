@@ -1,0 +1,66 @@
+/**
+ * @file frontend/src/components/ui/modal/styles.module.css
+ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(
+    11,
+    29,
+    51,
+    0.5
+  ); /* semi-transparent navy, dims the page behind */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  z-index: var(--z-modal);
+}
+
+.dialog {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh; /* never taller than the viewport, even on short screens */
+  overflow-y: auto; /* long content scrolls WITHIN the dialog, not the whole page */
+  outline: none; /* we manage the visible focus ring ourselves via the elements inside */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+}
+
+.closeButton {
+  font-size: var(--font-size-xl);
+  line-height: 1;
+  color: var(--color-text-muted);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.closeButton:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.body {
+  padding: var(--space-5);
+}
+
+.footer {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}

@@ -1,0 +1,25 @@
+/**
+ * @file frontend/src/pages/shop/PayPalStatusPage.module.css
+ */
+
+.centered {
+  text-align: center;
+  padding: var(--space-8) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.centered a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}

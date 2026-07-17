@@ -1,0 +1,23 @@
+/**
+ * @file frontend/src/components/layout/main/styles.module.css
+ */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1; /* grows to fill available space, so the footer sticks to the bottom */
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5);
+}
+
+.suspenseFallback {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8) 0;
+}

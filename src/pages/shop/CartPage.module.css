@@ -1,0 +1,74 @@
+/**
+ * @file frontend/src/pages/shop/CartPage.module.css
+ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) 0;
+  font-size: var(--font-size-lg);
+}
+
+.totalAmount {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.checkoutButton {
+  display: block;
+  text-align: center;
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+  transition: background-color var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .checkoutButton:hover {
+    background-color: var(--color-primary-hover);
+  }
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8) 0;
+}
+
+.errorBanner {
+  background-color: var(--color-danger-muted);
+  color: var(--color-danger);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--space-8) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.emptyState a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}

@@ -1,0 +1,168 @@
+/**
+ * @file frontend/src/styles/variables.css
+ */
+
+/* This file defines every design "token" (reusable value) for the whole app. */
+/* :root means "the very top of the whole HTML document" — so these variables */
+/* are visible from EVERY component, everywhere. */
+:root {
+  /* ============================================= */
+  /* LAYER 1: PRIMITIVE COLORS (raw paint, do not use directly in components) */
+  /* ============================================= */
+
+  --op-navy-900: #0b1d33; /* darkest navy, for text on light backgrounds */
+  --op-navy-800: #122b4d; /* dark navy, used for hover states */
+  --op-navy-700: #1a3a66; /* our main brand navy */
+  --op-navy-600: #234d85; /* a medium navy */
+  --op-navy-500: #2f63a8; /* lighter navy, used for focus rings */
+  --op-navy-100: #e7edf5; /* very light navy, used for soft backgrounds */
+  --op-navy-50: #f4f7fb; /* almost-white navy tint */
+
+  --op-gold-600: #b8860b; /* dark gold, for hover states on gold buttons */
+  --op-gold-500: #d4a017; /* our main accent gold */
+  --op-gold-400: #e8b93b; /* lighter gold */
+  --op-gold-100: #fbe8b8; /* pale gold, for soft badge backgrounds */
+
+  --op-gray-900: #14161a; /* near-black, main body text color */
+  --op-gray-700: #3f434b; /* dark gray, secondary text */
+  --op-gray-500: #6b7280; /* medium gray, muted/placeholder text */
+  --op-gray-300: #d1d5db; /* light gray, used for borders */
+  --op-gray-100: #f1f2f4; /* very light gray, used for muted backgrounds */
+  --op-gray-0: #ffffff; /* pure white */
+
+  --op-red-600: #b91c1c; /* dark red, for error text/icons */
+  --op-red-100: #fde2e2; /* pale red, for error backgrounds */
+  --op-green-600: #15803d; /* dark green, for success text/icons */
+  --op-green-100: #dcfce7; /* pale green, for success backgrounds */
+  --op-amber-600: #b45309; /* dark amber, for warning text/icons */
+  --op-amber-100: #fef3c7; /* pale amber, for warning backgrounds */
+
+  /* ============================================= */
+  /* LAYER 2: SEMANTIC COLORS (use THESE in your components) */
+  /* ============================================= */
+
+  --color-bg: var(--op-gray-0); /* the page's main background color */
+  --color-surface: var(
+    --op-gray-0
+  ); /* background of cards, modals, dropdowns */
+  --color-surface-muted: var(
+    --op-gray-100
+  ); /* slightly shaded panel background */
+  --color-border: var(
+    --op-gray-300
+  ); /* default border color for inputs, cards */
+  --color-text: var(--op-gray-900); /* main body text color */
+  --color-text-muted: var(--op-gray-500); /* secondary/less important text */
+  --color-text-on-primary: var(
+    --op-gray-0
+  ); /* text color placed ON TOP of a primary-colored button */
+
+  --color-primary: var(
+    --op-navy-700
+  ); /* our main brand color (buttons, links, header) */
+  --color-primary-hover: var(
+    --op-navy-800
+  ); /* darker navy shown when hovering a primary button */
+  --color-primary-muted: var(
+    --op-navy-100
+  ); /* soft navy background, e.g. selected nav item */
+
+  --color-accent: var(
+    --op-gold-500
+  ); /* our "treasure gold" accent (sale badges, highlights) */
+  --color-accent-hover: var(--op-gold-600); /* darker gold on hover */
+  --color-accent-muted: var(--op-gold-100); /* soft gold background */
+
+  --color-danger: var(
+    --op-red-600
+  ); /* errors, delete buttons, "Canceled" order status */
+  --color-danger-muted: var(
+    --op-red-100
+  ); /* soft red background for error banners */
+  --color-success: var(
+    --op-green-600
+  ); /* success messages, "Delivered" order status */
+  --color-success-muted: var(--op-green-100); /* soft green background */
+  --color-warning: var(--op-amber-600); /* warnings, "Pending" order status */
+  --color-warning-muted: var(--op-amber-100); /* soft amber background */
+
+  --color-focus-ring: var(
+    --op-navy-500
+  ); /* the outline color shown when you Tab to a button/input */
+
+  /* ============================================= */
+  /* TYPOGRAPHY */
+  /* ============================================= */
+
+  /* "system font stack" — uses the device's own native font (fast, no download needed) */
+  --font-family-base:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+
+  --font-size-xs: 0.75rem; /* 12px — small print, timestamps */
+  --font-size-sm: 0.875rem; /* 14px — secondary text, form labels */
+  --font-size-base: 1rem; /* 16px — normal body text */
+  --font-size-lg: 1.125rem; /* 18px — slightly bigger text */
+  --font-size-xl: 1.5rem; /* 24px — small headings */
+  --font-size-2xl: 2rem; /* 32px — page titles */
+  --font-size-3xl: 2.5rem; /* 40px — hero/landing titles */
+
+  --font-weight-regular: 400; /* normal text weight */
+  --font-weight-medium: 500; /* slightly bold, good for labels */
+  --font-weight-bold: 700; /* fully bold, for headings */
+
+  --line-height-tight: 1.2; /* used for headings (lines sit close together) */
+  --line-height-normal: 1.6; /* used for paragraphs (easier to read) */
+
+  /* ============================================= */
+  /* SPACING SCALE (all based on multiples of 4px — keeps every gap consistent) */
+  /* ============================================= */
+
+  --space-1: 4px; /* tiniest gap, e.g. icon-to-text spacing */
+  --space-2: 8px; /* small gap */
+  --space-3: 12px; /* small-medium gap */
+  --space-4: 16px; /* our "default" gap, used most often */
+  --space-5: 24px; /* medium gap, between sections */
+  --space-6: 32px; /* large gap */
+  --space-8: 48px; /* extra large gap, between big page sections */
+  --space-10: 64px; /* biggest gap, top/bottom of whole page sections */
+
+  /* ============================================= */
+  /* BORDER RADIUS (rounded corners) */
+  /* ============================================= */
+
+  --radius-sm: 4px; /* small rounding, e.g. small badges */
+  --radius-md: 8px; /* normal rounding, e.g. buttons, inputs */
+  --radius-lg: 16px; /* big rounding, e.g. cards, modals */
+  --radius-full: 999px; /* fully round, e.g. circular avatar or pill badge */
+
+  /* ============================================= */
+  /* SHADOWS (depth effect) */
+  /* ============================================= */
+
+  --shadow-sm: 0 1px 2px rgba(11, 29, 51, 0.06); /* subtle shadow, e.g. input focus */
+  --shadow-md: 0 4px 12px rgba(11, 29, 51, 0.1); /* card shadow */
+  --shadow-lg: 0 12px 32px rgba(11, 29, 51, 0.16); /* modal/dropdown shadow */
+
+  /* ============================================= */
+  /* TRANSITIONS (animation speed, keeps motion consistent app-wide) */
+  /* ============================================= */
+
+  --transition-fast: 120ms ease; /* quick hover effects */
+  --transition-base: 220ms ease; /* normal fade/slide effects */
+
+  /* ============================================= */
+  /* Z-INDEX SCALE (stacking order — who sits on top of who) */
+  /* ============================================= */
+
+  --z-header: 100; /* sticky header sits above normal page content */
+  --z-dropdown: 200; /* dropdown menus sit above the header */
+  --z-modal: 300; /* modals sit above dropdowns */
+  --z-toast: 400; /* toast notifications sit above EVERYTHING */
+}
+
+/* IMPORTANT NOTE ABOUT BREAKPOINTS (screen sizes for mobile/tablet/desktop): */
+/* CSS variables CANNOT be used inside @media rules — this is a real limitation */
+/* of CSS itself, not something we're doing wrong. So we write breakpoint pixel */
+/* values directly wherever we need a @media query. Our standard breakpoints: */
+/* Mobile: below 640px | Tablet: 640px–1023px | Desktop: 1024px and up */

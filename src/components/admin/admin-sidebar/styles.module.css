@@ -1,0 +1,101 @@
+/**
+ * @file frontend/src/components/admin/admin-sidebar/styles.module.css
+ */
+
+.brand {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  padding: var(--space-4) var(--space-4);
+  font-size: var(--font-size-sm);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .navLink:hover {
+    background-color: var(--color-surface-muted);
+    color: var(--color-text);
+  }
+}
+
+.navLinkActive {
+  background-color: var(--color-primary-muted);
+  color: var(--color-primary);
+}
+
+/* Desktop: a permanent, always-visible sidebar column. */
+.desktopSidebar {
+  width: 220px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+@media (max-width: 900px) {
+  .desktopSidebar {
+    display: none;
+  }
+}
+
+/* Mobile: an off-canvas overlay, same visual language as Modal.module.css. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(11, 29, 51, 0.5);
+  z-index: var(--z-modal);
+  display: none;
+}
+
+.mobilePanel {
+  width: 260px;
+  height: 100%;
+  background-color: var(--color-surface);
+  outline: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.closeButton {
+  padding: var(--space-2);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+}
+
+@media (hover: hover) {
+  .closeButton:hover {
+    background-color: var(--color-surface-muted);
+  }
+}
+
+@media (max-width: 900px) {
+  .overlay {
+    display: flex;
+  }
+}

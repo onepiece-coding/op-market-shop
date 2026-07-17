@@ -1,0 +1,37 @@
+/**
+ * @file frontend/src/components/shop/status-badge/styles.module.css
+ */
+
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.pending {
+  background-color: var(--color-warning-muted);
+  color: var(--color-warning);
+}
+
+.accepted {
+  background-color: var(--color-primary-muted);
+  color: var(--color-primary);
+}
+
+.outForDelivery {
+  background-color: var(--color-accent-muted);
+  color: var(--color-accent-hover);
+}
+
+.delivered {
+  background-color: var(--color-success-muted);
+  color: var(--color-success);
+}
+
+.canceled {
+  background-color: var(--color-danger-muted);
+  color: var(--color-danger);
+}

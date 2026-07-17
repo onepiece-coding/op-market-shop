@@ -1,0 +1,81 @@
+/**
+ * @file frontend/src/pages/shop/CheckoutPage.module.css
+ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.addressList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.noAddresses {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.summaryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  gap: var(--space-3);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+}
+
+.totalAmount {
+  color: var(--color-primary);
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-8) 0;
+}
+
+.success,
+.emptyState {
+  text-align: center;
+  padding: var(--space-8) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.successActions {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.emptyState a,
+.successActions a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}

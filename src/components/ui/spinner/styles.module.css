@@ -1,0 +1,55 @@
+/**
+ * @file frontend/src/components/ui/spinner/styles.module.css
+ */
+
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* "spin" continuously rotates the whole SVG a full circle, forever.
+   NOTE: we do NOT need a separate prefers-reduced-motion rule here —
+   our global reset.css from Part 1-C already forces EVERY animation's
+   duration down to near-zero for people with that OS setting enabled. */
+.svg {
+  animation: spin 0.8s linear infinite;
+}
+
+.sm {
+  width: 16px;
+  height: 16px;
+}
+
+.md {
+  width: 24px;
+  height: 24px;
+}
+
+.lg {
+  width: 40px;
+  height: 40px;
+}
+
+.track {
+  stroke: var(--color-border); /* the pale, non-moving background ring */
+}
+
+.indicator {
+  stroke: var(--color-primary);
+  stroke-linecap: round; /* rounds the ends of the arc, looks smoother */
+  /* dasharray/dashoffset together create a "partial ring" look — an
+     arc rather than a full circle, which is what makes the spin
+     animation actually look like it's rotating, not just pulsing */
+  stroke-dasharray: 90;
+  stroke-dashoffset: 60;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

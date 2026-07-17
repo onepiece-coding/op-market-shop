@@ -1,0 +1,84 @@
+/**
+ * @file frontend/tsconfig.app.json
+ */
+
+{
+  "compilerOptions": {
+    // This is who tells TypeScript how to handle non-JS assets like CSS, SVGs, and images.
+    "types": ["vite/client"],
+
+    // where TypeScript stores a "memory file" to make re-checking faster next time
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+
+    // "target" = which version of JavaScript to assume the browser understands.
+    // ES2022 is a modern-but-safe choice — all real browsers today support it.
+    "target": "ES2022",
+
+    // a small technical switch for how class fields behave. Keep this true (Vite's default).
+    "useDefineForClassFields": true,
+
+    // "lib" tells TypeScript which built-in features it's allowed to assume exist.
+    // ES2022 = modern JS features. DOM = browser things like `document` and `window`.
+    // DOM.Iterable = lets us use "for...of" loops on things like NodeList.
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+
+    // "module" = the format TypeScript writes import/export statements in.
+    // ESNext = the newest/standard `import { x } from "y"` style.
+    "module": "ESNext",
+
+    // Skip re-checking the TYPES inside other packages' code (like React's own types).
+    // This makes checking much faster and avoids errors that aren't your fault.
+    "skipLibCheck": true,
+
+    // ---- These next options tell TypeScript "Vite is in charge of the actual build" ----
+
+    // How TypeScript should look up "where is this imported file?"
+    // "bundler" matches how Vite itself resolves imports.
+    "moduleResolution": "bundler",
+
+    // Lets us write `import x from "./file.ts"` with the extension, if we ever want to.
+    "allowImportingTsExtensions": true,
+
+    // Treats every file as its own independent module (safer, avoids some rare bugs).
+    "isolatedModules": true,
+
+    // Forces TypeScript to always treat files as modules, not old-style global scripts.
+    "moduleDetection": "force",
+
+    // TypeScript should NOT output any .js files itself — Vite handles that job.
+    "noEmit": true,
+
+    // How to handle JSX (the <div>...</div> syntax inside .tsx files).
+    // "react-jsx" is the modern setting — we don't need to `import React` in every file.
+    "jsx": "react-jsx",
+
+    // ---- Path alias setup: lets us write "@/components/Button" instead of "../../../components/Button" ----
+
+    // baseUrl = the starting point for resolving the alias below
+    // "baseUrl": ".",
+    "paths": {
+      // "@/anything" means "look inside the src/ folder"
+      "@/*": ["./src/*"]
+    },
+
+    // ---- STRICTNESS: these are the rules that catch bugs early ----
+
+    // Turns ON every strict type-checking rule TypeScript offers. This is the most
+    // important line in this whole file for a beginner — it's what stops silly bugs.
+    "strict": true,
+
+    // Errors if you declare a variable and never use it (keeps code clean)
+    "noUnusedLocals": true,
+
+    // Errors if a function has a parameter it never uses
+    "noUnusedParameters": true,
+
+    // Errors if a "switch" statement case forgets a "break" (a classic JS bug source)
+    "noFallthroughCasesInSwitch": true,
+
+    // Extra safety check for imports that only exist for their "side effects"
+    "noUncheckedSideEffectImports": true
+  },
+  // Only apply all these rules to files inside the src/ folder
+  "include": ["src"]
+}
