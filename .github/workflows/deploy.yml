@@ -1,0 +1,48 @@
+# .github/workflows/deploy.yml
+
+name: Deploy OP MARKET To Github Pages
+
+# This ci/cd pipeline triggered on push code to repository (main branche)
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  # This job has to run on some runner
+  # Github already provides a lot of runners
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout The Repository
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # ── Gate: all tests must pass before the build runs ──────────────────
+      # If any test fails, GitHub Actions marks this step as failed and
+      # cancels every subsequent step — build and deploy never execute.
+      - name: Run Tests
+        run: npm run test -- --run
+
+      # Build The Project
+      - name: Build The Project
+        run: npm run build
+
+      # Deploy To Github Pages
+      - name: Deploy To Github Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist

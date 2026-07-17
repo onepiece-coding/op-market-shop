@@ -1,0 +1,28 @@
+<!-- @file public/404.html -->
+
+<!-- GitHub Pages Doesn't Understand Client-Side Routing -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OnePiece Coding</title>
+    <script>
+      // Encode the current path as a query param and redirect to index.html
+      // GitHub Pages will serve this file for any unknown path
+      const repo = "/op-market-shop";
+      const path = window.location.pathname.replace(repo, "") || "/";
+      const search = window.location.search;
+      const hash = window.location.hash;
+
+      const redirectUrl =
+        repo +
+        "/?p=" +
+        encodeURIComponent(path + search) +
+        (hash ? "&h=" + encodeURIComponent(hash) : "");
+
+      window.location.replace(redirectUrl);
+    </script>
+  </head>
+  <body></body>
+</html>
