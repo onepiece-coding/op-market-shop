@@ -2,7 +2,7 @@
  * @file frontend/src/components/layout/footer/index.tsx
  */
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import styles from "./styles.module.css";
 
@@ -15,11 +15,11 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>op-market</div>
-        <nav className={styles.links} aria-label="Footer navigation">
+        {/* <nav className={styles.links} aria-label="Footer navigation">
           <Link to="/">Shop</Link>
           <Link to="/cart">Cart</Link>
           <Link to="/login">Log in</Link>
-        </nav>
+        </nav> */}
         <p className={styles.copyright}>
           © {currentYear} op-market. All rights reserved.
         </p>

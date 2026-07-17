@@ -2,8 +2,9 @@
  * @file frontend/src/components/layout/header/header.test.tsx
  */
 
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { CacheProvider } from "@/cache";
 import { Header } from ".";
@@ -44,8 +45,6 @@ describe("Header", () => {
 
     expect(screen.getByText("Log in")).toBeInTheDocument();
     expect(screen.getByText("Sign up")).toBeInTheDocument();
-    // give any potential fetch a moment, then confirm it truly never fired —
-    // this is the "enabled: isAuthenticated" guard from our "why" section
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(getCart).not.toHaveBeenCalled();
   });
@@ -64,7 +63,7 @@ describe("Header", () => {
     expect(screen.getByText("Log out")).toBeInTheDocument();
   });
 
-  it("does NOT show the Admin link for a regular USER", () => {
+  it("does NOT show the Admin link (in either nav) for a regular USER", () => {
     (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
       isAuthenticated: true,
       user: { id: 1, name: "Lahcen", role: "USER" },
@@ -77,7 +76,7 @@ describe("Header", () => {
     expect(screen.queryByText("Admin")).not.toBeInTheDocument();
   });
 
-  it("shows the Admin link for a user with role ADMIN", () => {
+  it("shows the Admin link in the DESKTOP nav for a user with role ADMIN", () => {
     (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
       isAuthenticated: true,
       user: { id: 1, name: "Boss", role: "ADMIN" },
@@ -87,7 +86,13 @@ describe("Header", () => {
 
     renderHeader();
 
-    expect(screen.getByText("Admin")).toBeInTheDocument();
+    // 🚩 scoped to the desktop nav specifically — "Admin" now legitimately
+    // appears TWICE in the full document (once per nav), so a plain
+    // getByText("Admin") would fail with "found multiple elements"
+    const desktopNav = screen.getByRole("navigation", {
+      name: "Main navigation",
+    });
+    expect(within(desktopNav).getByText("Admin")).toBeInTheDocument();
   });
 
   it("fetches and displays the real cart item count when authenticated", async () => {
@@ -104,7 +109,7 @@ describe("Header", () => {
     renderHeader();
 
     await waitFor(() => expect(getCart).toHaveBeenCalledTimes(1));
-    expect(await screen.findByText("2")).toBeInTheDocument(); // 2 cart ITEMS (rows), not quantities
+    expect(await screen.findByText("2")).toBeInTheDocument();
   });
 
   it("shows no cart badge number when the cart is empty", async () => {
@@ -118,9 +123,87 @@ describe("Header", () => {
     renderHeader();
 
     await waitFor(() => expect(getCart).toHaveBeenCalledTimes(1));
-    // aria-label always reflects the real count, even when 0 — this
-    // confirms the badge NUMBER (a separate visual element) is hidden,
-    // while the accessible name stays accurate
     expect(screen.getByLabelText("Cart, 0 items")).toBeInTheDocument();
+  });
+
+  // ---- NEW: the mobile hamburger menu ----
+  describe("mobile menu", () => {
+    beforeEach(() => {
+      (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
+        isAuthenticated: true,
+        user: { id: 1, name: "Lahcen", role: "USER" },
+        logout: vi.fn(),
+      });
+      (getCart as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    });
+
+    it("starts closed: aria-expanded is false, and no overlay is present", () => {
+      renderHeader();
+
+      expect(screen.getByRole("button", { name: "Open menu" })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
+      expect(
+        screen.queryByTestId("mobile-nav-overlay"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("clicking the toggle opens the menu: shows the overlay and flips aria-expanded", async () => {
+      const user = userEvent.setup();
+      renderHeader();
+
+      await user.click(screen.getByRole("button", { name: "Open menu" }));
+
+      expect(screen.getByTestId("mobile-nav-overlay")).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Close menu" }),
+      ).toHaveAttribute("aria-expanded", "true");
+    });
+
+    it("clicking the overlay closes the menu", async () => {
+      const user = userEvent.setup();
+      renderHeader();
+
+      await user.click(screen.getByRole("button", { name: "Open menu" }));
+      await user.click(screen.getByTestId("mobile-nav-overlay"));
+
+      expect(
+        screen.queryByTestId("mobile-nav-overlay"),
+      ).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Open menu" })).toHaveAttribute(
+        "aria-expanded",
+        "false",
+      );
+    });
+
+    it("the mobile nav contains the SAME links as the desktop nav", async () => {
+      const user = userEvent.setup();
+      renderHeader();
+
+      await user.click(screen.getByRole("button", { name: "Open menu" }));
+
+      const mobileNav = screen.getByRole("navigation", {
+        name: "Mobile navigation",
+      });
+      expect(within(mobileNav).getByText("Shop")).toBeInTheDocument();
+      expect(within(mobileNav).getByText("My Orders")).toBeInTheDocument();
+    });
+
+    it("clicking a link inside the mobile nav closes the menu (auto-close on route change)", async () => {
+      const user = userEvent.setup();
+      renderHeader();
+
+      await user.click(screen.getByRole("button", { name: "Open menu" }));
+      const mobileNav = screen.getByRole("navigation", {
+        name: "Mobile navigation",
+      });
+
+      await user.click(within(mobileNav).getByText("My Orders"));
+
+      expect(
+        screen.queryByTestId("mobile-nav-overlay"),
+      ).not.toBeInTheDocument();
+    });
   });
 });

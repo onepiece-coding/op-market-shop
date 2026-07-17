@@ -17,19 +17,23 @@
   display: flex;
   align-items: center;
   gap: var(--space-6);
+  /* local stacking context, kept ABOVE the mobile overlay below (see
+     the "why" section) so the header bar itself never gets dimmed */
+  position: relative;
+  z-index: 2;
 }
 
 .brand {
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
   color: var(--color-primary);
-  flex-shrink: 0; /* the brand name never shrinks, even on a narrow screen */
+  flex-shrink: 0;
 }
 
 .nav {
   display: flex;
   gap: var(--space-5);
-  flex: 1; /* takes up the remaining space between the brand and the actions */
+  flex: 1;
 }
 
 .navLink {
@@ -37,12 +41,14 @@
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
   padding: var(--space-2) 0;
-  border-bottom: 2px solid transparent; /* reserves space so active state doesn't shift layout */
+  border-bottom: 2px solid transparent;
   transition: color var(--transition-fast);
 }
 
-.navLink:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .navLink:hover {
+    color: var(--color-text);
+  }
 }
 
 .navLinkActive {
@@ -58,7 +64,7 @@
 }
 
 .cartLink {
-  position: relative; /* lets the badge position itself relative to this icon */
+  position: relative;
   display: inline-flex;
   color: var(--color-text);
 }
@@ -93,8 +99,10 @@
   color: var(--color-text-muted);
 }
 
-.logoutButton:hover {
-  color: var(--color-danger);
+@media (hover: hover) {
+  .logoutButton:hover {
+    color: var(--color-danger);
+  }
 }
 
 .authLinks {
@@ -111,12 +119,83 @@
   border-radius: var(--radius-md);
 }
 
-/* below 768px (a typical tablet/mobile breakpoint — see Part 1-C's note
-   that breakpoints must be hardcoded, since CSS variables can't be used
-   inside @media queries), hide the nav LINKS to keep the header compact.
-   Part 10 (final polish) is where we'll build a proper mobile menu. */
+/* ============================================= */
+/* MOBILE MENU — hidden entirely on desktop */
+/* ============================================= */
+
+.menuButton {
+  display: none; /* only enabled below 768px, see the media query */
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+}
+
+@media (hover: hover) {
+  .menuButton:hover {
+    background-color: var(--color-surface-muted);
+  }
+}
+
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(11, 29, 51, 0.5);
+  z-index: 1; /* stays BELOW .inner's z-index: 2, so the header bar stays crisp */
+}
+
+.mobileNav {
+  display: none; /* re-enabled below 768px */
+  flex-direction: column;
+  gap: var(--space-1);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  right: 0;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-5);
+  z-index: 2; /* matches .inner, so it renders above the overlay too */
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none; /* can't be tapped while invisible/sliding out */
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-base);
+}
+
+.mobileNavOpen {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobileNav .navLink {
+  padding: var(--space-2) 0;
+  border-bottom: none; /* full-width tap targets instead of the desktop underline style */
+}
+
 @media (max-width: 768px) {
   .nav {
     display: none;
+  }
+  .menuButton {
+    display: inline-flex;
+  }
+  .mobileNav {
+    display: flex; /* visibility from here on is controlled by .mobileNavOpen */
+  }
+  .username {
+    display: none;
+  }
+}
+
+/* belt-and-suspenders: guarantees the mobile-only elements can NEVER
+   show up on desktop, even if something above is ever miscalculated */
+@media (min-width: 769px) {
+  .mobileOverlay,
+  .mobileNav,
+  .menuButton {
+    display: none !important;
   }
 }

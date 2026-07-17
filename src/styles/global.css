@@ -39,6 +39,41 @@ h6 {
   color: var(--color-primary-hover); /* dark navy text */
 }
 
+/* ============================================= */
+/* CUSTOM SCROLLBAR (uses our existing design tokens) */
+/* ============================================= */
+
+/* Firefox: a simple two-value shorthand — thumb color, then track color */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--op-navy-500) var(--color-surface-muted);
+}
+
+/* Chrome / Edge / Safari: the older, more granular pseudo-element API */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px; /* used for horizontal scrollbars, e.g. our admin tables' .tableWrapper */
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-surface-muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--op-navy-500);
+  border-radius: var(--radius-full);
+  /* a transparent border + background-clip creates a small visual "gap"
+     around the thumb, so it doesn't look like it's touching the track's edges */
+  border: 2px solid var(--color-surface-muted);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(
+    --color-primary
+  ); /* darker navy on hover, matches your button hover states */
+}
+
 /* A simple utility class we will reuse everywhere for screen-reader-only text. */
 /* Example: a search input's icon-only button needs a hidden text label for blind users. */
 .sr-only {
