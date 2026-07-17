@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://your-domain.example.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.example.com/login</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.example.com/signup</loc>
+    <priority>0.3</priority>
+  </url>
+  <!--
+    🚩 KNOWN GAP, matching this project's earlier flagged backend gaps:
+    real product URLs (/products/1, /products/2, ...) CANNOT be listed
+    here by a pure frontend SPA — we have no build-time knowledge of
+    which product ids exist in the database. Closing this properly
+    needs either:
+      (a) a backend endpoint returning every product id, consumed by a
+          small build/deploy script that regenerates this file, or
+      (b) a server-rendered/prerendered route that can query the DB
+          directly at build or request time.
+    Worth raising with Mohamed as a real, concrete follow-up item.
+  -->
+</urlset>

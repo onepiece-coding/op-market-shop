@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- These are the ONLY values a non-JS-executing crawler (many
+         social link-preview bots) will ever actually see — everything
+         usePageMeta does happens too late for them. Keep these as a
+         solid, generic fallback that's still accurate and useful. -->
+    <title>op-market — Shop everything, in one place</title>
+    <meta
+      name="description"
+      content="Browse and buy a wide range of products on op-market, with fast checkout and secure payments."
+    />
+    <meta name="robots" content="index, follow" />
+    <!-- SPA redirect restore: decode path encoded by 404.html -->
+    <script>
+      (function () {
+        const query = new URLSearchParams(window.location.search);
+        const path = query.get("p");
+        const hash = query.get("h");
+
+        if (path) {
+          const cleanUrl =
+            "/op-market-shop" +
+            decodeURIComponent(path) +
+            (hash ? decodeURIComponent(hash) : "");
+
+          window.history.replaceState(null, "", cleanUrl);
+        }
+      })();
+    </script>
+    <!-- 
+      ## How It Works
+      User refreshes /op-portfolio/duo
+        ↓
+      GitHub serves 404.html (no file found)
+        ↓
+      404.html encodes "/duo" → redirects to /op-portfolio/?p=%2Fduo
+        ↓
+      GitHub serves index.html (root path exists)
+        ↓
+      index.html script decodes "%2Fduo" → replaceState("/op-portfolio/duo")
+        ↓
+      React Router sees /op-portfolio/duo → renders DuoPage 
+    -->
+    <script type="module" crossorigin src="/assets/index-LQ2JL1kE.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-Bh1tDfsg.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-CUZs9Gsc.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-KJslO1cs.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
