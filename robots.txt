@@ -6,4 +6,4 @@ Disallow: /orders
 Disallow: /profile
 Disallow: /admin
 
-Sitemap: https://your-domain.example.com/sitemap.xml
+Sitemap: https://onepiece-coding.github.io/op-market-shop/
