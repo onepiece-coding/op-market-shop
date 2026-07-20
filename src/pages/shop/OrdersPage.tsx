@@ -19,15 +19,16 @@ import { Link } from "react-router-dom";
 
 import styles from "./OrdersPage.module.css";
 
-// A CLIENT-SIDE restriction, not a backend rule.
-// cancelOrderCtrl has no status guard at all; we add one here purely so
-// a customer can't confusingly "cancel" a package that already shipped.
 const CANCELABLE_STATUSES: OrderEventStatus[] = ["PENDING", "ACCEPTED"];
 
 export function OrdersPage() {
-  // 🚩 listMyOrders returns a PLAIN ARRAY (Part 2-B's Gotcha A) — no
-  // { data, pagination } wrapper — so plain useFetch is correct here,
-  // NOT usePagedFetch.
+  // 🚩 MOVED HERE from OrderCard — this is a PAGE-LEVEL concern and must
+  // be called exactly ONCE, regardless of how many order cards render.
+  // Calling it per-card meant its cleanup fired every time a SINGLE card
+  // unmounted (e.g. after canceling one order), incorrectly resetting
+  // the document title while the user was still on this same page.
+  usePageMeta({ title: "My orders", noIndex: true });
+
   const {
     data: orders,
     isLoading,
@@ -74,23 +75,13 @@ export function OrdersPage() {
   );
 }
 
-// A SEPARATE component, not an inline .map() callback — the same rule
-// we hit with OrderRow (Part 9-C) and PayPalWarningScreen (Part 8-F):
-// useMutate/usePayPalRetry are hooks, and hooks cannot safely live
-// inside a loop callback whose length can change between renders.
 function OrderCard({ order }: { order: Order }) {
-  usePageMeta({ title: "My orders", noIndex: true });
-
   const { showToast } = useToast();
 
   const { mutate: cancel, isLoading: isCanceling } = useMutate(
     () => cancelOrder(order.id),
     {
       onSuccess: (updatedOrder, _variables, store) => {
-        // 🚩 THE MERGE FIX from our "why" section: cancelOrderCtrl's
-        // response has NO "products" field — replacing the cached order
-        // wholesale would make this card's line items silently vanish.
-        // We keep the EXISTING cached order and only overwrite "status".
         updateCacheEntry<Order[]>(store, cacheKeys.orders.mine(), (current) =>
           (current ?? []).map((o) =>
             o.id === order.id ? { ...o, status: updatedOrder.status } : o,
@@ -129,16 +120,38 @@ function OrderCard({ order }: { order: Order }) {
         <StatusBadge status={order.status} />
       </header>
 
-      {/* 🚩 order.products (when present) only ever has productId +
-          quantity — never a nested name/image/price. We show exactly
-          what the backend actually gives us, not a pretend richer view. */}
       {order.products && order.products.length > 0 && (
         <ul className={styles.itemsList}>
           {order.products.map((item) => (
-            <li key={item.id}>
-              <Link to={`/products/${item.productId}`}>
-                Product #{item.productId} × {item.quantity}
+            <li key={item.id} className={styles.itemRow}>
+              <Link
+                to={`/products/${item.productId}`}
+                className={styles.itemLink}
+              >
+                {item.product?.imageUrl ? (
+                  <img
+                    src={item.product.imageUrl}
+                    alt={item.product.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={styles.itemImage}
+                  />
+                ) : (
+                  <div className={styles.itemImagePlaceholder}>
+                    {item.product ? "No image" : "?"}
+                  </div>
+                )}
+                <span className={styles.itemName}>
+                  {/* 🚩 defensive fallback — see "why" above */}
+                  {item.product?.name ?? `Product #${item.productId}`}
+                </span>
               </Link>
+              <span className={styles.itemQuantity}>× {item.quantity}</span>
+              {item.product?.price && (
+                <span className={styles.itemPrice}>
+                  {formatCurrency(Number(item.product.price) * item.quantity)}
+                </span>
+              )}
             </li>
           ))}
         </ul>

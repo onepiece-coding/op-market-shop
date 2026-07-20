@@ -194,7 +194,18 @@ function OrderRow({
   return (
     <tr>
       <td>#{order.id}</td>
-      <td>User #{order.userId}</td>
+      <td>
+        {/* 🚩 real customer data, with a graceful fallback if "user" is
+            ever missing from this specific endpoint's response */}
+        <div className={styles.customerCell}>
+          <span className={styles.customerName}>
+            {order.user?.name ?? `User #${order.userId}`}
+          </span>
+          {order.user?.email && (
+            <span className={styles.customerEmail}>{order.user.email}</span>
+          )}
+        </div>
+      </td>
       <td>{formatCurrency(Number(order.netAmount))}</td>
       <td className={styles.paymentCell}>
         {order.paymentMethod === "PAYPAL" ? "PayPal" : "Cash on delivery"}

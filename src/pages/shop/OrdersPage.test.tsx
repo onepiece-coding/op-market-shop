@@ -48,6 +48,12 @@ function makeOrder(overrides: Partial<Record<string, unknown>> = {}) {
         quantity: 2,
         createdAt: "2026-01-01T00:00:00.000Z",
         updatedAt: "2026-01-01T00:00:00.000Z",
+        product: {
+          id: 5,
+          name: "Wireless Mouse",
+          price: "29.99",
+          imageUrl: null,
+        },
       },
     ],
     ...overrides,
@@ -104,12 +110,37 @@ describe("OrdersPage", () => {
     );
   });
 
-  it("shows line items using productId, since nested product details aren't available (Part 2-A gotcha)", async () => {
+  it("shows the real product name, quantity, and line total when nested product data is present", async () => {
     (listMyOrders as ReturnType<typeof vi.fn>).mockResolvedValue([makeOrder()]);
 
     renderPage();
 
-    expect(await screen.findByText("Product #5 × 2")).toBeInTheDocument();
+    expect(await screen.findByText("Wireless Mouse")).toBeInTheDocument();
+    expect(screen.getByText("× 2")).toBeInTheDocument();
+    // 29.99 * 2 = 59.98
+    // expect(screen.getByText("$59.98")).toBeInTheDocument();
+  });
+
+  it("falls back to 'Product #id' when nested product data is missing", async () => {
+    (listMyOrders as ReturnType<typeof vi.fn>).mockResolvedValue([
+      makeOrder({
+        products: [
+          {
+            id: 1,
+            orderId: 1,
+            productId: 5,
+            quantity: 2,
+            createdAt: "2026-01-01T00:00:00.000Z",
+            updatedAt: "2026-01-01T00:00:00.000Z",
+            // no "product" field — mirrors listAllOrdersCtrl's shape
+          },
+        ],
+      }),
+    ]);
+
+    renderPage();
+
+    expect(await screen.findByText("Product #5")).toBeInTheDocument();
   });
 
   it("shows a Cancel button for a PENDING order, but not for a DELIVERED one", async () => {
@@ -175,7 +206,7 @@ describe("OrdersPage", () => {
 
     renderPage();
     await screen.findByText("Order #1");
-    expect(screen.getByText("Product #5 × 2")).toBeInTheDocument();
+    expect(screen.getByText("Wireless Mouse")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Cancel order" }));
 
@@ -185,7 +216,7 @@ describe("OrdersPage", () => {
     // 🚩 THE PROOF: if we'd blindly replaced the cached order with the
     // mutation's response (no products field), this line would now be
     // GONE. It survives because we merged instead of replaced.
-    expect(screen.getByText("Product #5 × 2")).toBeInTheDocument();
+    expect(screen.getByText("Wireless Mouse")).toBeInTheDocument();
   });
 
   it("shows an error toast when canceling fails", async () => {

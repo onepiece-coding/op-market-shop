@@ -48,6 +48,21 @@
   white-space: nowrap;
 }
 
+.customerCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.customerName {
+  font-weight: var(--font-weight-medium);
+}
+
+.customerEmail {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
 .paymentCell,
 .dateCell {
   font-size: var(--font-size-sm);

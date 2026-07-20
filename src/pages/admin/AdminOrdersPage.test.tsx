@@ -37,6 +37,17 @@ function makeOrder(id: number, status: string, userId = 1) {
     paidAt: null,
     createdAt: "2026-01-01T00:00:00.000Z",
     updatedAt: "2026-01-01T00:00:00.000Z",
+    user: {
+      id: userId,
+      name: "Lahcen",
+      email: "lahcen@test.com",
+      role: "USER",
+      emailVerifiedAt: "2026-01-01T00:00:00.000Z",
+      defaultShippingAddress: null,
+      defaultBillingAddress: null,
+      createdAt: "2026-01-01T00:00:00.000Z",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    },
   };
 }
 
@@ -66,10 +77,10 @@ describe("AdminOrdersPage", () => {
 
     renderPage();
 
-    //     expect(screen.getByRole("status")).toBeInTheDocument();
     expect(await screen.findByText("#1")).toBeInTheDocument();
-    // 🚩 confirms Gotcha 2: no name/email available, only a raw user id
-    expect(screen.getByText("User #1")).toBeInTheDocument();
+    // 🚩 now shows REAL customer name + email, not "User #1"
+    expect(screen.getByText("Lahcen")).toBeInTheDocument();
+    expect(screen.getByText("lahcen@test.com")).toBeInTheDocument();
   });
 
   it("changing the status filter resets to page 1 and calls listAllOrders with the new filter", async () => {
@@ -180,5 +191,18 @@ describe("AdminOrdersPage", () => {
     expect(
       screen.getByTestId("orders-table-wrapper").querySelector("table"),
     ).not.toBeNull();
+  });
+
+  // ADD a new test for the fallback path:
+  it("falls back to 'User #id' when the user object is missing from the response", async () => {
+    const orderWithoutUser = { ...makeOrder(1, "PENDING"), user: undefined };
+    (listAllOrders as ReturnType<typeof vi.fn>).mockResolvedValue({
+      data: [orderWithoutUser],
+      pagination: { current: 1, limit: 10, totalPages: 1, results: 1 },
+    });
+
+    renderPage();
+
+    expect(await screen.findByText("User #1")).toBeInTheDocument();
   });
 });

@@ -3,6 +3,8 @@
  */
 
 import type { DecimalString, ID, ISODateString } from "./common";
+import { Product } from "./product";
+import { PublicUser } from "./user";
 
 // These three match the enums in schema.prisma exactly.
 export type OrderEventStatus =
@@ -31,6 +33,12 @@ export interface OrderProduct {
   // This means our order-details UI can't show product names/images yet without
   // a second fetch per product. This is a real gap worth flagging to Mohamed,
   // exactly like the cart/order include gaps you caught before.
+
+  // 🚩 UPDATED: orderProductInclude now nests a partial Product record
+  // (id, name, price, imageUrl) on every order-fetching endpoint EXCEPT
+  // listAllOrdersCtrl's admin table, which never requests it — kept
+  // optional so components can't assume it's always present.
+  product?: Pick<Product, "id" | "name" | "price" | "imageUrl">;
 }
 
 // Matches "OrderEvent" in schema.prisma — the order's status history log.
@@ -64,6 +72,11 @@ export interface Order {
   // us from a real crash if we forget which endpoint we called.
   products?: OrderProduct[];
   events?: OrderEvent[];
+
+  // 🚩 NEW: only present on listAllOrdersCtrl's admin response — every
+  // OTHER order-fetching endpoint (mine, byUser, detail) does not include
+  // this, so it stays optional here too.
+  user?: PublicUser;
 }
 
 // createOrderCtrl has THREE possible shapes depending on what happens:

@@ -54,6 +54,62 @@
   padding: var(--space-2) 0;
 }
 
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.itemLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0; /* lets a long product name truncate instead of overflowing the row */
+  color: var(--color-text);
+}
+
+.itemLink:hover .itemName {
+  color: var(--color-primary);
+}
+
+.itemImage,
+.itemImagePlaceholder {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.itemImagePlaceholder {
+  background-color: var(--color-surface-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.itemName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transition-fast);
+}
+
+.itemQuantity {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.itemPrice {
+  font-weight: var(--font-weight-medium);
+  flex-shrink: 0;
+  min-width: 60px;
+  text-align: right;
+}
+
 .cardFooter {
   display: flex;
   justify-content: space-between;
