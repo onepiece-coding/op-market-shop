@@ -345,6 +345,14 @@ Have an idea? [Open a feature request](#) — we'd love to hear it.
 
 ---
 
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@email.com | Pass@1234 |
+| User | user@email.com | Pass@1234 |
+| Paypal | sb-jm1bo50147124@personal.example.com | H!we}8,k |
+
+---
+
 ## 🤝 How to Contribute
 
 Contributions, issues, and feature requests are genuinely welcome!
