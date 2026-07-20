@@ -345,6 +345,8 @@ Have an idea? [Open a feature request](#) — we'd love to hear it.
 
 ---
 
+**Test credentials**
+
 | Role | Email | Password |
 |---|---|---|
 | Admin | admin@email.com | Pass@1234 |
